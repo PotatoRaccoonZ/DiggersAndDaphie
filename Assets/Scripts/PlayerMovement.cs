@@ -12,11 +12,13 @@ public class PlayerMovement : MonoBehaviour
     private float currentSpeed = 0f;
     private bool isJumping = false;
     private bool isSprinting = false;
+    private Animator animator;
 
     private void Start()
     {
         characterController = GetComponent<CharacterController>();
         currentSpeed = movementSpeed;
+        animator = GetComponent<Animator>();
     }
 
     /**
@@ -33,6 +35,20 @@ public class PlayerMovement : MonoBehaviour
 
         ySpeed += Physics.gravity.y * Time.deltaTime;
         movement.y = ySpeed;
+
+        if (movement.z == 0f && movement.x == 0f)
+        {
+            Idle();
+        }
+        else if (isSprinting)
+        {
+            Run();
+        }
+        else
+        {
+            Walk();
+        }
+
 
         characterController.Move(movement * Time.deltaTime);
 
@@ -69,5 +85,20 @@ public class PlayerMovement : MonoBehaviour
             currentSpeed = movementSpeed;
             isSprinting = false;
         }
+    }
+
+    private void Idle()
+    {
+        animator.SetFloat("Speed", 0);
+    }
+
+    private void Walk()
+    {
+        animator.SetFloat("Speed", 0.5f);
+    }
+
+    private void Run()
+    {
+        animator.SetFloat("Speed", 1);
     }
 }
