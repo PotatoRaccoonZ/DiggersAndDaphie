@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,14 +12,18 @@ public class PlayerMovement : MonoBehaviour
     private float ySpeed = 0f;
     private float currentSpeed = 0f;
     private bool isJumping = false;
-    private bool isSprinting = false;
+
     private Animator animator;
+    private int moveXAnimatorID;
+    private int moveZAnimatorID;
 
     private void Start()
     {
         characterController = GetComponent<CharacterController>();
         currentSpeed = movementSpeed;
         animator = GetComponent<Animator>();
+        moveXAnimatorID = Animator.StringToHash("MoveX");
+        moveZAnimatorID = Animator.StringToHash("MoveZ");
     }
 
     /**
@@ -26,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
      * 
      * @param horizontalInput - Horizontal input
      * @param verticalInput - Vertical input
-     */
+     **/
     public void Move(float horizontalInput, float verticalInput)
     {
         Vector3 movement = transform.forward * verticalInput + transform.right * horizontalInput;
@@ -36,21 +41,11 @@ public class PlayerMovement : MonoBehaviour
         ySpeed += Physics.gravity.y * Time.deltaTime;
         movement.y = ySpeed;
 
-        if (movement.z == 0f && movement.x == 0f)
-        {
-            Idle();
-        }
-        else if (isSprinting)
-        {
-            Run();
-        }
-        else
-        {
-            Walk();
-        }
-
 
         characterController.Move(movement * Time.deltaTime);
+
+        animator.SetFloat(moveXAnimatorID, horizontalInput);
+        animator.SetFloat(moveZAnimatorID, verticalInput);
 
         if (characterController.isGrounded)
         {
@@ -73,32 +68,4 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
     }
 
-    public void Sprint(bool start, bool stop)
-    {
-        if (start && !isSprinting)
-        {
-            currentSpeed = movementSpeed * 2;
-            isSprinting = true;
-        }
-        else if (stop)
-        {
-            currentSpeed = movementSpeed;
-            isSprinting = false;
-        }
-    }
-
-    private void Idle()
-    {
-        animator.SetFloat("Speed", 0);
-    }
-
-    private void Walk()
-    {
-        animator.SetFloat("Speed", 0.5f);
-    }
-
-    private void Run()
-    {
-        animator.SetFloat("Speed", 1);
-    }
 }

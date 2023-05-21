@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Check if should sprint or not
-        playerMovement.Sprint(Input.GetKeyDown(KeyCode.LeftShift), Input.GetKeyUp(KeyCode.LeftShift));
+        //playerMovement.Sprint(Input.GetKeyDown(KeyCode.LeftShift), Input.GetKeyUp(KeyCode.LeftShift));
 
         /** 
          * TODO: 
