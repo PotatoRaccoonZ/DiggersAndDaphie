@@ -32,10 +32,13 @@ public class PlayerController : MonoBehaviour
             playerMovement.Jump();
         }
 
+        // Check if should sprint or not
+        playerMovement.Sprint(Input.GetKeyDown(KeyCode.LeftShift), Input.GetKeyUp(KeyCode.LeftShift));
+
         /** 
          * TODO: 
          * - create an health controller and control it from here aswell 
          * - this health controller should be made in a way that player and npcs/enemies are able to use it
-         */ 
+         */
     }
 }
