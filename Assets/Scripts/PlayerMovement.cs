@@ -27,29 +27,19 @@ public class PlayerMovement : MonoBehaviour
      */
     public void Move(float horizontalInput, float verticalInput)
     {
-        Debug.Log(isSprinting);
         Vector3 movement = transform.forward * verticalInput + transform.right * horizontalInput;
         movement.Normalize(); // Normalize to ensure consistent speed in all directions
         movement *= currentSpeed;
+
+        ySpeed += Physics.gravity.y * Time.deltaTime;
+        movement.y = ySpeed;
+
+        characterController.Move(movement * Time.deltaTime);
 
         if (characterController.isGrounded)
         {
             ySpeed = 0f;
             isJumping = false;
-        }
-
-        ySpeed += Physics.gravity.y * Time.deltaTime;
-        movement.y = ySpeed;
-
-        // TODO - Add possibility to run (accelerate speed) by pressing SHIFT or something
-
-        if (movement.Equals(Vector3.zero))
-        {
-            // play idle animation
-        }
-        else
-        {
-            characterController.Move(movement * Time.deltaTime);
         }
     }
 
