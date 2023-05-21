@@ -9,11 +9,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float movementSpeed = 5f;
     [SerializeField] private float jumpHeight = 5f;
     private float ySpeed = 0f;
+    private float currentSpeed = 0f;
     private bool isJumping = false;
+    private bool isSprinting = false;
 
     private void Start()
     {
         characterController = GetComponent<CharacterController>();
+        currentSpeed = movementSpeed;
     }
 
     /**
@@ -24,9 +27,10 @@ public class PlayerMovement : MonoBehaviour
      */
     public void Move(float horizontalInput, float verticalInput)
     {
+        Debug.Log(isSprinting);
         Vector3 movement = transform.forward * verticalInput + transform.right * horizontalInput;
         movement.Normalize(); // Normalize to ensure consistent speed in all directions
-        movement *= movementSpeed;
+        movement *= currentSpeed;
 
         if (characterController.isGrounded)
         {
@@ -58,9 +62,22 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
     public void Rotate(float targetAngle)
     {
         transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
+    }
+
+    public void Sprint(bool start, bool stop)
+    {
+        if (start && !isSprinting)
+        {
+            currentSpeed = movementSpeed * 2;
+            isSprinting = true;
+        }
+        else if (stop)
+        {
+            currentSpeed = movementSpeed;
+            isSprinting = false;
+        }
     }
 }
