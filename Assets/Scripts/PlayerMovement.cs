@@ -92,6 +92,7 @@ public class PlayerMovement : MonoBehaviour
         {
             ySpeed = jumpHeight;
             isJumping = true;
+            animator.SetTrigger("Jump");
         }
     }
 
