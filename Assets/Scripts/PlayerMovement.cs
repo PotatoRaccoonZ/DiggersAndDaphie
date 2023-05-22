@@ -13,6 +13,10 @@ public class PlayerMovement : MonoBehaviour
     private float currentSpeed = 0f;
     private bool isJumping = false;
 
+    //combo
+    private int combonr = 0;
+
+
     private Animator animator;
     private int moveXAnimatorID;
     private int moveZAnimatorID;
@@ -33,7 +37,34 @@ public class PlayerMovement : MonoBehaviour
      * @param verticalInput - Vertical input
      **/
     public void Move(float horizontalInput, float verticalInput)
-    {
+    {   
+
+        if(animator.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
+        {
+                animator.ResetTrigger("Attack1");
+                Debug.Log("Combo1");
+        }
+        else if(animator.GetCurrentAnimatorStateInfo(0).IsName("Attack2"))
+        {
+                animator.ResetTrigger("Attack2");
+                Debug.Log("Combo2");
+        }
+        else if(animator.GetCurrentAnimatorStateInfo(0).IsName("Attack3"))
+        {
+                animator.ResetTrigger("Attack3");
+                Debug.Log("Combo3");
+        }
+        else if(animator.GetCurrentAnimatorStateInfo(0).IsName("Attack4"))
+        {
+                animator.ResetTrigger("Attack4");
+                Debug.Log("Combo4");
+                combonr = 0;
+        }
+        if(combonr >= 4){
+            combonr = 0;
+        }
+        
+        Debug.Log(combonr);
         Vector3 movement = transform.forward * verticalInput + transform.right * horizontalInput;
         movement.Normalize(); // Normalize to ensure consistent speed in all directions
         movement *= currentSpeed;
@@ -52,6 +83,7 @@ public class PlayerMovement : MonoBehaviour
             ySpeed = 0f;
             isJumping = false;
         }
+
     }
 
     public void Jump()
@@ -68,4 +100,22 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
     }
 
+    public void OnClick()
+    {
+        combonr ++;
+       if(combonr == 1){
+        animator.SetTrigger("Attack1");
+       } 
+       else if(combonr == 2){
+        animator.SetTrigger("Attack2");
+       }
+       else if(combonr == 3){
+        animator.SetTrigger("Attack3");
+       }
+       else if(combonr == 4){
+        animator.SetTrigger("Attack4");
+       }
+    }
+
+       
 }

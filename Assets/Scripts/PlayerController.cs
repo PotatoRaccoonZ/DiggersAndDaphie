@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private PlayerMovement playerMovement;
     private float rotationAngle = 0f;
 
+
     private void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
@@ -23,13 +24,19 @@ public class PlayerController : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         rotationAngle += mouseX;
         playerMovement.Rotate(rotationAngle);
-
+ 
         playerMovement.Move(horizontalInput, verticalInput);
 
         // Handle other player actions and behaviors
         if (Input.GetButtonDown("Jump"))
         {
             playerMovement.Jump();
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            playerMovement.OnClick();
+            
+            
         }
 
         // Check if should sprint or not
