@@ -13,12 +13,17 @@ public class PlayerMovement : MonoBehaviour
     private bool isJumping = false;
     private bool isSprinting = false;
     private Animator animator;
+    private int moveXAnimatorID;
+    private int moveZAnimatorID;
+    private int comboNr = 0;
 
     private void Start()
     {
         characterController = GetComponent<CharacterController>();
         currentSpeed = movementSpeed;
         animator = GetComponent<Animator>();
+        moveXAnimatorID = Animator.StringToHash("MoveX");
+        moveZAnimatorID = Animator.StringToHash("MoveZ");
     }
 
     /**
@@ -36,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
         ySpeed += Physics.gravity.y * Time.deltaTime;
         movement.y = ySpeed;
 
-        if (movement.z == 0f && movement.x == 0f)
+        /*if (movement.z == 0f && movement.x == 0f)
         {
             Idle();
         }
@@ -47,10 +52,11 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             Walk();
-        }
-
+        }*/
 
         characterController.Move(movement * Time.deltaTime);
+
+        Animate(horizontalInput, verticalInput);
 
         if (characterController.isGrounded)
         {
@@ -87,18 +93,55 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void Idle()
+    private void Animate(float horizontalInput, float verticalInput)
     {
-        animator.SetFloat("Speed", 0);
+        // Move animations
+        animator.SetFloat(moveXAnimatorID, horizontalInput);
+        animator.SetFloat(moveZAnimatorID, verticalInput);
+
+        // Attack
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
+        {
+            animator.ResetTrigger("Attack1");
+        }
+        else if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack2"))
+        {
+            animator.ResetTrigger("Attack2");
+        }
+        else if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack3"))
+        {
+            animator.ResetTrigger("Attack3");
+        }
+        else if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack4"))
+        {
+            animator.ResetTrigger("Attack4");
+            comboNr = 0;
+        }
+        if (comboNr >= 4)
+        {
+            comboNr = 0;
+        };
     }
 
-    private void Walk()
+    public void Attack()
     {
-        animator.SetFloat("Speed", 0.5f);
+        comboNr++;
+        if (comboNr == 1)
+        {
+            animator.SetTrigger("Attack1");
+        }
+        else if (comboNr == 2)
+        {
+            animator.SetTrigger("Attack2");
+        }
+        else if (comboNr == 3)
+        {
+            animator.SetTrigger("Attack3");
+        }
+        else if (comboNr == 4)
+        {
+            animator.SetTrigger("Attack4");
+        }
     }
 
-    private void Run()
-    {
-        animator.SetFloat("Speed", 1);
-    }
 }
