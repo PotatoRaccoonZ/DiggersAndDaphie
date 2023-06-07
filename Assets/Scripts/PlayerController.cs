@@ -6,12 +6,14 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float mouseSensitivity = 2f;
     private PlayerMovement playerMovement;
+    private PlayerAttackController attackController;
     private HealthController healthController;
     private float rotationAngle = 0f;
 
     private void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
+        attackController = GetComponent<PlayerAttackController>();
         healthController = GetComponent<HealthController>();
     }
 
@@ -36,8 +38,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            playerMovement.Attack();
-
+            attackController.Attack();
         }
 
         // Check if should sprint or not

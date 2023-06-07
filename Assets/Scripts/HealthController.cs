@@ -16,24 +16,24 @@ public class HealthController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void Heal(float health)
     {
         currentHealth += health;
 
-        if(currentHealth > maxHealth)
+        if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
         }
     }
-    
+
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
 
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             Die();
         }
@@ -43,7 +43,18 @@ public class HealthController : MonoBehaviour
     {
         /**
          * TODO
-         * - on death behaviour
+         * - enemy on death behaviour -> currently destroying object (add animations in the future
+         * - player on death behaviour
          */
+        if (!gameObject.CompareTag("Player"))
+        {
+            Destroy(gameObject);
+        }
+        Debug.Log("DEAD");
+    }
+
+    public float getCurrentHealth()
+    {
+        return currentHealth;
     }
 }
