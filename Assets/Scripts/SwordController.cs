@@ -11,20 +11,20 @@ public class SwordController : MonoBehaviour
     void Start()
     {
         swordCollider = GetComponent<Collider>();
-        // currently we only active the collider when the player presses to attack
+        // currently we only activate the collider when the player presses to attack
         // will eventually have to find a better way to do this most likely
-        swordCollider.enabled = false; 
+        swordCollider.enabled = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))
         {
-            other.GetComponentInParent<HealthController>().TakeDamage(damage); // hardcoded for now, get damage from "other" in the future
+            other.GetComponentInParent<HealthController>().TakeDamage(damage);
             Debug.Log("Enemy Health: " + other.GetComponentInParent<HealthController>().getCurrentHealth());
             // I will eventually find another and better way to do this thing below
             // this is just to prevent multiple hits in a single swing
-            swordCollider.enabled = false;  
         }
+        swordCollider.enabled = false;
     }
 }
