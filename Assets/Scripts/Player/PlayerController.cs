@@ -4,17 +4,16 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private GameObject enemyPrefab; // temp (might convert this to an array when we get to have more enemies)
     [SerializeField] private float mouseSensitivity = 2f;
     private PlayerMovement playerMovement;
     private PlayerAttackController attackController;
-    private HealthController healthController;
     private float rotationAngle = 0f;
 
     private void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
         attackController = GetComponent<PlayerAttackController>();
-        healthController = GetComponent<HealthController>();
     }
 
     private void Update()
@@ -49,5 +48,37 @@ public class PlayerController : MonoBehaviour
          * - create an health controller and control it from here aswell 
          * - this health controller should be made in a way that player and npcs/enemies are able to use it
          */
+
+        ////
+        // DEV TOOLS
+        //
+        // this is just for testing and stuff
+        ////
+
+        // Respawn Enemy
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            // spawn the enemy in a random place 
+            RespawnEnemy();
+        }
+
+        // Reposition player to the center
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            RepositionPlayer();
+        }
+    }
+
+    private void RespawnEnemy()
+    {
+        float y = 5;
+        float min = -20;
+        float max = 20;
+        Instantiate(enemyPrefab, new Vector3(Random.Range(min, max), y, Random.Range(min, max)), Quaternion.identity);
+    }
+
+    private void RepositionPlayer()
+    {
+        transform.position = Vector3.zero;
     }
 }

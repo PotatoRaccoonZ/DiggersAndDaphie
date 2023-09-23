@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthController : MonoBehaviour
 {
     [SerializeField] private float currentHealth;
     [SerializeField] private float maxHealth = 10f;
+    private HealthBar healthBar;
 
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
+        healthBar = GetComponentInChildren<HealthBar>();
     }
 
     // Update is called once per frame
@@ -22,6 +25,7 @@ public class HealthController : MonoBehaviour
     public void Heal(float health)
     {
         currentHealth += health;
+        healthBar.UpdateHealthBar(currentHealth, maxHealth);
 
         if (currentHealth > maxHealth)
         {
@@ -32,6 +36,7 @@ public class HealthController : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
+        healthBar.UpdateHealthBar(currentHealth, maxHealth);
 
         if (currentHealth <= 0)
         {
