@@ -30,9 +30,6 @@ public class PlayerAttackController : MonoBehaviour
     public void Attack()
     {
         swordCollider.enabled = true;
-        //
-        // anything bellow this makes me sick
-        //
         AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
         if (timeBetweenAttack <= 0f && info.normalizedTime > 1)
         {

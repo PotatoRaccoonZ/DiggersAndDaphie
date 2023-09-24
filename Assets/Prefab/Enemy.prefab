@@ -232,6 +232,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8e2573ef23d63a429f7a47a2880219d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _speed: 3
+  _frozen: 0
 --- !u!114 &4572432381497635572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,7 +247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 0
-  maxHealth: 10
+  maxHealth: 3
 --- !u!54 &612786077705903353
 Rigidbody:
   m_ObjectHideFlags: 0
