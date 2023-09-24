@@ -50,7 +50,7 @@ public class ArenaManager: MonoBehaviour {
 
     private void OnTriggerStay( Collider other ) {
         if ( other.gameObject.CompareTag( "Player" ) ) {
-            if ( Input.GetKey( KeyCode.E ) && !_respawnStarted ) {
+            if ( Input.GetKey( KeyCode.E ) ) {
                 if ( _respawnStarted && !_arenaGates[0].IsRotating ) {
                     _respawnStarted = false;
                     foreach ( ArenaGate arenaGate in _arenaGates ) {
