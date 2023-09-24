@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ArenaGate: MonoBehaviour {
 
-    public float rotationDuration = 2.0f;
+    private float rotationDuration = 2.0f;
     private Quaternion initialRotation;
     private Quaternion targetRotation;
     private float rotationStartTime;
