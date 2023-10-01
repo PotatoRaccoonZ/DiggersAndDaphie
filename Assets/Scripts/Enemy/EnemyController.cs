@@ -10,11 +10,13 @@ public class EnemyController: MonoBehaviour {
 
     private HealthController _healthController;
     private Transform _target;
+    private Animator _animator;
 
     // Start is called before the first frame update
     void Start() {
         _target = GameObject.Find( "Player" ).transform;
         _healthController = GetComponent<HealthController>();
+        _animator = transform.Find( "Body" ).GetComponent<Animator>();
     }
     void Awake() {
         if ( !_target ) {
@@ -34,11 +36,18 @@ public class EnemyController: MonoBehaviour {
         if ( _target ) {
             transform.position = Vector3.MoveTowards( transform.position, _target.position, _speed * Time.deltaTime );
             transform.LookAt( new Vector3( _target.position.x, transform.position.y, _target.position.z ) );
+            _animator.SetBool( "Walk Forward", true );
             //_moveDir = (_target.position - transform.position).normalized;
         }
     }
 
     public void TakeDamage( float damage ) {
         _healthController.TakeDamage( damage );
+        _animator.SetTrigger( "Take Damage" );
+    }
+
+    public void Die() {
+        _animator.SetBool( "Walk Forward", false );
+        _animator.SetTrigger( "Die" );
     }
 }

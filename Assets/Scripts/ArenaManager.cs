@@ -34,6 +34,9 @@ public class ArenaManager: MonoBehaviour {
         // Stop respawning enemies and 
         if ( Input.GetKeyDown( KeyCode.Q ) ) {
             _respawnStarted = false;
+            foreach ( ArenaGate arenaGate in _arenaGates ) {
+                arenaGate.Open();
+            }
         }
     }
 
@@ -51,12 +54,7 @@ public class ArenaManager: MonoBehaviour {
     private void OnTriggerStay( Collider other ) {
         if ( other.gameObject.CompareTag( "Player" ) ) {
             if ( Input.GetKey( KeyCode.E ) ) {
-                if ( _respawnStarted && !_arenaGates[0].IsRotating ) {
-                    _respawnStarted = false;
-                    foreach ( ArenaGate arenaGate in _arenaGates ) {
-                        arenaGate.Open();
-                    }
-                } else if ( !_respawnStarted && !_arenaGates[0].IsRotating ) {
+                if ( !_respawnStarted && !_arenaGates[0].IsRotating ) {
                     _respawnStarted = true;
                     foreach ( ArenaGate arenaGate in _arenaGates ) {
                         arenaGate.Close();
