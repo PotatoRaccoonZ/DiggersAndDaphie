@@ -7,29 +7,33 @@ public class PlayerAttackController : MonoBehaviour
 {
     [SerializeField] private Collider swordCollider;
     private Animator animator;
-    private int comboNr = 0;
-    private float maxTimeBetweenAttack = 1f;
-    private float timeBetweenAttack = 0f;
-    private bool isAnimating = false;
-
+    //private int comboNr = 0;
+    //private float maxTimeBetweenAttack = 1f;
+    //private float timeBetweenAttack = 0f;
+    //private bool isAnimating = false;
     // Start is called before the first frame update
+    public bool isAttacking = false;
     void Start()
     {
         animator = GetComponent<Animator>();
+        isAttacking = animator.GetBool("Attack1");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (timeBetweenAttack > 0f)
+        /*if (timeBetweenAttack > 0f)
         {
             timeBetweenAttack -= Time.deltaTime;
-        }
+        }*/
     }
 
     public void Attack()
     {
         swordCollider.enabled = true;
+        animator.SetTrigger("Attack1");
+
+        /*
         AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
         if (timeBetweenAttack <= 0f && info.normalizedTime > 1)
         {
@@ -58,9 +62,9 @@ public class PlayerAttackController : MonoBehaviour
                 comboNr = 0;
             };
             // Animate();
-        }
+        }*/
     }
-
+/*
     private void Animate()
     {
         AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
@@ -90,5 +94,5 @@ public class PlayerAttackController : MonoBehaviour
             isAnimating = false;
         }
     }
-
+*/
 }

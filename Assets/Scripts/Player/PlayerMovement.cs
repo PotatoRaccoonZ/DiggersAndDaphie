@@ -15,9 +15,10 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
     private int moveXAnimatorID;
     private int moveZAnimatorID;
-
+    private PlayerAttackController attackController;
     private void Start()
     {
+        attackController = GetComponent<PlayerAttackController>();
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         moveXAnimatorID = Animator.StringToHash("MoveX");
