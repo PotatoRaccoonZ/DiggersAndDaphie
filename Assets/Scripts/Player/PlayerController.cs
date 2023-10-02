@@ -22,10 +22,10 @@ public class PlayerController : MonoBehaviour
         if (!attackController.isAttacking && Input.GetMouseButtonDown(0))
         {
             attackController.Attack();
+
         } else if (!attackController.isAttacking) {
             attackController.isAttacking = false;
         }
-
         Moving();
         
         // Handle other player actions and behaviors

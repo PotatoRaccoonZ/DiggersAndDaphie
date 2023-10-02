@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,21 +8,37 @@ public class PlayerAttackController : MonoBehaviour
 {
     [SerializeField] private Collider swordCollider;
     private Animator animator;
-    //private int comboNr = 0;
+    private int comboNr = 0;
     //private float maxTimeBetweenAttack = 1f;
     //private float timeBetweenAttack = 0f;
     //private bool isAnimating = false;
     // Start is called before the first frame update
     public bool isAttacking = false;
+    private bool attack1 = false;
+    private bool attack2 = false;
+    private bool attack3 = false;
+
+    private bool attack4 = false;
+
     void Start()
     {
         animator = GetComponent<Animator>();
-        isAttacking = animator.GetBool("Attack1");
     }
 
     // Update is called once per frame
     void Update()
     {
+        attack1 = animator.GetBool("Attack1");
+        attack2 = animator.GetBool("Attack2");
+        attack3 = animator.GetBool("Attack3");
+        attack4 = animator.GetBool("Attack4");
+
+        if(attack1 || attack2 || attack3 || attack4){
+            isAttacking = true;
+        }else{
+            isAttacking = false;
+        }
+
         /*if (timeBetweenAttack > 0f)
         {
             timeBetweenAttack -= Time.deltaTime;
@@ -29,10 +46,27 @@ public class PlayerAttackController : MonoBehaviour
     }
 
     public void Attack()
-    {
+    {   
+        comboNr ++;
         swordCollider.enabled = true;
-        animator.SetTrigger("Attack1");
 
+        if (comboNr == 1){
+            animator.SetTrigger("Attack1");
+        }
+        else if ( comboNr == 2){
+            animator.SetTrigger("Attack2");
+        }
+        else if ( comboNr == 3){
+            animator.SetTrigger("Attack3");
+        }
+        else if ( comboNr == 4){
+            animator.SetTrigger("Attack4");
+        }
+        else {
+            comboNr = 0;
+        }
+
+        
         /*
         AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
         if (timeBetweenAttack <= 0f && info.normalizedTime > 1)
