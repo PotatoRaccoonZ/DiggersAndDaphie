@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -13,7 +14,7 @@ public class PlayerAttackController : MonoBehaviour
     //private float timeBetweenAttack = 0f;
     //private bool isAnimating = false;
     // Start is called before the first frame update
-    public bool isAttacking = false;
+    private bool isAttacking = false;
     private bool attack1 = false;
     private bool attack2 = false;
     private bool attack3 = false;
@@ -75,7 +76,6 @@ public class PlayerAttackController : MonoBehaviour
             animator.ResetTrigger("Attack3");
             animator.ResetTrigger("Attack4");
         }
-
         
         /*
         AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
@@ -108,6 +108,11 @@ public class PlayerAttackController : MonoBehaviour
             // Animate();
         }*/
     }
+
+    public bool GetisAttacking()
+    {
+        return isAttacking;
+    } 
 /*
     private void Animate()
     {

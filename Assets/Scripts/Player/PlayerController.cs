@@ -20,7 +20,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (!attackController.isAttacking && Input.GetMouseButtonDown(0))
+        Debug.Log(attackController.GetisAttacking());
+        if (!attackController.GetisAttacking() && Input.GetMouseButtonDown(0))
         {
             attackController.Attack();
         }
