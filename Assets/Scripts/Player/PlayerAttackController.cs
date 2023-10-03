@@ -39,6 +39,7 @@ public class PlayerAttackController : MonoBehaviour
             isAttacking = false;
         }
 
+
         /*if (timeBetweenAttack > 0f)
         {
             timeBetweenAttack -= Time.deltaTime;
@@ -49,21 +50,30 @@ public class PlayerAttackController : MonoBehaviour
     {   
         comboNr ++;
         swordCollider.enabled = true;
+        Debug.Log(comboNr);
 
         if (comboNr == 1){
             animator.SetTrigger("Attack1");
         }
         else if ( comboNr == 2){
             animator.SetTrigger("Attack2");
+            animator.ResetTrigger("Attack1");
         }
         else if ( comboNr == 3){
             animator.SetTrigger("Attack3");
+            animator.ResetTrigger("Attack2");
         }
         else if ( comboNr == 4){
             animator.SetTrigger("Attack4");
+            animator.ResetTrigger("Attack3");
+            comboNr = 0;
         }
         else {
             comboNr = 0;
+            animator.ResetTrigger("Attack1");
+            animator.ResetTrigger("Attack2");
+            animator.ResetTrigger("Attack3");
+            animator.ResetTrigger("Attack4");
         }
 
         

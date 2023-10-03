@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private PlayerMovement playerMovement;
     private PlayerAttackController attackController;
     private float rotationAngle = 0f;
+    private Animator animator;
 
 
     private void Start()
@@ -22,9 +23,6 @@ public class PlayerController : MonoBehaviour
         if (!attackController.isAttacking && Input.GetMouseButtonDown(0))
         {
             attackController.Attack();
-
-        } else if (!attackController.isAttacking) {
-            attackController.isAttacking = false;
         }
         Moving();
         
