@@ -10,10 +10,10 @@ public class PlayerAttackController : MonoBehaviour
     [SerializeField] private Collider swordCollider;
     private Animator animator;
     private int comboNr = 0;
-    //private float maxTimeBetweenAttack = 1f;
-    //private float timeBetweenAttack = 0f;
-    //private bool isAnimating = false;
-    // Start is called before the first frame update
+    [SerializeField] private float maxTimeBetweenAttack = 5f;
+    private float comboTimer = 0f;
+    private bool comboActive = false;
+    [SerializeField] private float attackSpeed;
     private bool isAttacking = false;
     private bool attack1 = false;
     private bool attack2 = false;
@@ -29,6 +29,8 @@ public class PlayerAttackController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        animator.SetFloat("attackSpeed",attackSpeed);
+        
         attack1 = animator.GetBool("Attack1");
         attack2 = animator.GetBool("Attack2");
         attack3 = animator.GetBool("Attack3");
@@ -41,41 +43,42 @@ public class PlayerAttackController : MonoBehaviour
         }
 
 
+        if(comboActive){
+            comboTimer += Time.deltaTime;
+            if(comboTimer >= maxTimeBetweenAttack){
+                ResetCombo();
+            }
+        }
         /*if (timeBetweenAttack > 0f)
         {
             timeBetweenAttack -= Time.deltaTime;
         }*/
+
     }
 
     public void Attack()
     {   
         comboNr ++;
         swordCollider.enabled = true;
-        Debug.Log(comboNr);
-
+        comboActive = true;
+        
         if (comboNr == 1){
             animator.SetTrigger("Attack1");
         }
         else if ( comboNr == 2){
             animator.SetTrigger("Attack2");
-            animator.ResetTrigger("Attack1");
         }
         else if ( comboNr == 3){
             animator.SetTrigger("Attack3");
-            animator.ResetTrigger("Attack2");
         }
         else if ( comboNr == 4){
             animator.SetTrigger("Attack4");
-            animator.ResetTrigger("Attack3");
             comboNr = 0;
         }
         else {
-            comboNr = 0;
-            animator.ResetTrigger("Attack1");
-            animator.ResetTrigger("Attack2");
-            animator.ResetTrigger("Attack3");
-            animator.ResetTrigger("Attack4");
+            ResetCombo();
         }
+        comboTimer = 0f;
         
         /*
         AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
@@ -108,10 +111,20 @@ public class PlayerAttackController : MonoBehaviour
             // Animate();
         }*/
     }
+    private void ResetCombo(){
+        comboNr = 0;            
+        animator.ResetTrigger("Attack1");
+        animator.ResetTrigger("Attack2");
+        animator.ResetTrigger("Attack3");
+        animator.ResetTrigger("Attack4");
+        swordCollider.enabled = false;
+        comboActive = false;
+    }
 
     public bool GetisAttacking()
     {
         return isAttacking;
+        
     } 
 /*
     private void Animate()
