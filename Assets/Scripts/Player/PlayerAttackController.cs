@@ -29,8 +29,22 @@ public class PlayerAttackController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        animator.SetFloat("attackSpeed",attackSpeed);
-        
+        if(animator.GetNextAnimatorStateInfo(0).IsName("Attack1"))
+        {
+            animator.speed = attackSpeed;
+        } 
+        else if(animator.GetNextAnimatorStateInfo(0).IsName("Attack2")){
+            animator.speed = attackSpeed;
+        }
+        else if(animator.GetNextAnimatorStateInfo(0).IsName("Attack3")){
+            animator.speed = attackSpeed;
+        }
+        else if(animator.GetNextAnimatorStateInfo(0).IsName("Attack4")){
+            animator.speed = attackSpeed;
+        }
+        else{
+            animator.speed = 1.0f;
+        }
         attack1 = animator.GetBool("Attack1");
         attack2 = animator.GetBool("Attack2");
         attack3 = animator.GetBool("Attack3");
@@ -61,7 +75,7 @@ public class PlayerAttackController : MonoBehaviour
         comboNr ++;
         swordCollider.enabled = true;
         comboActive = true;
-        
+
         if (comboNr == 1){
             animator.SetTrigger("Attack1");
         }
@@ -124,6 +138,11 @@ public class PlayerAttackController : MonoBehaviour
     public bool GetisAttacking()
     {
         return isAttacking;
+        
+    } 
+    public float GetAttackSpeed()
+    {
+        return attackSpeed;
         
     } 
 /*
