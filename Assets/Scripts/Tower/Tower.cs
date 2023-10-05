@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    //only to check, change to private later
-    private Transform target;
 
+    private Transform target;
     private float range = 15f;
     private float turnSpeed = 10f;
     private string enemieTag = "Enemy";
@@ -18,11 +17,14 @@ public class Tower : MonoBehaviour
     private Vector3 direction;
     private Quaternion lookRotation;
     private Vector3 rotation; 
-
+    private Shoot shoot;
+private float nextFireTime = 0.0f;
+    public float fireRate = 1.0f;
 
     // Start is called before the first frame update
     void Start()
     {  
+        shoot = GetComponent<Shoot>();
         //this is to call UpdateTarget in x times every sec
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
         
@@ -35,9 +37,16 @@ public class Tower : MonoBehaviour
         if(target == null){
             return;
         }
+        if(target != null){
 
-        RotateTower();
+            RotateTower();
+            if (Time.time > nextFireTime)
+            {
+                shoot.FireProjectile();
+                nextFireTime = Time.time + 1.0f / fireRate;
+            }
         
+        }
 
     }
 
