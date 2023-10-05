@@ -5,12 +5,20 @@ using UnityEngine;
 public class Tower : MonoBehaviour
 {
     //only to check, change to private later
-    public Transform target;
+    private Transform target;
 
-    public float range = 15f;
-    public float turnSpeed = 10f;
-    public string enemieTag = "Enemy";
-    public Transform headOfTower;
+    private float range = 15f;
+    private float turnSpeed = 10f;
+    private string enemieTag = "Enemy";
+    [SerializeField] private Transform headOfTower;
+    private GameObject[] enemies;
+    private float shortestDistance = 0;
+    private GameObject nearestEnemy = null;
+    private float distanceToEnemy = 0f;
+    private Vector3 direction;
+    private Quaternion lookRotation;
+    private Vector3 rotation; 
+
 
     // Start is called before the first frame update
     void Start()
@@ -42,15 +50,15 @@ public class Tower : MonoBehaviour
     void UpdateTarget(){
 
         //array to catch all enemies
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemieTag);
+        enemies = GameObject.FindGameObjectsWithTag(enemieTag);
 
-        float shortestDistance = Mathf.Infinity;
-        GameObject nearestEnemy = null;
+        shortestDistance = Mathf.Infinity;
+        nearestEnemy = null;
         //loop trough all enemies
         foreach(GameObject enemy in enemies)
         {
             //Get the distance between this object and the enemie object
-            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);    
+            distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);    
             
             //if enemie is closest that the last read distance
             if(distanceToEnemy < shortestDistance){
@@ -70,12 +78,12 @@ public class Tower : MonoBehaviour
     void RotateTower(){
         
         //get where to rotate
-        Vector3 dir = target.position - transform.position;
+        direction = target.position - transform.position;
         //how to turn
-        Quaternion lookRotation = Quaternion.LookRotation(dir);
+        lookRotation = Quaternion.LookRotation(direction);
         //Convert to Euriol Angels, x y z
         //Lerp was using to smooth the animation
-        Vector3 rotation = Quaternion.Lerp(headOfTower.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles; 
+        rotation = Quaternion.Lerp(headOfTower.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles; 
         //Vector3 rotation = lookRotation.eulerAngles; 
 
         headOfTower.rotation = Quaternion.Euler(0f, rotation.y, 0f);
