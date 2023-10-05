@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571328, b: 0.3069218, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -485,12 +485,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1311390814}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 4.52, z: 1.877}
+  m_LocalRotation: {x: -0, y: -0.010929683, z: -0, w: 0.99994034}
+  m_LocalPosition: {x: -0.04102723, y: 4.52, z: 1.8765506}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4939998088689533}
+  m_Father: {fileID: 4519940625098221}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &1319392051
@@ -781,7 +781,6 @@ GameObject:
   - component: {fileID: 4519940625098221}
   - component: {fileID: 33089451212385855}
   - component: {fileID: 23466981379125457}
-  - component: {fileID: 33089451212385857}
   - component: {fileID: 33089451212385856}
   m_Layer: 0
   m_Name: Head
@@ -991,7 +990,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1311390815}
   m_Father: {fileID: 4939998088689533}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 1.252, z: 0}
@@ -1039,7 +1039,6 @@ Transform:
   m_Children:
   - {fileID: 4519940625098221}
   - {fileID: 4795538022563125}
-  - {fileID: 1311390815}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 180.516, z: 0}
@@ -1474,22 +1473,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2be065e7fd9a9971a0eb40878af18ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  headOfTower: {fileID: 4519940625098221}
+  _projectile: {fileID: 4111110919055302188, guid: 24b2a16247c6cf7cea69e90c39013470, type: 3}
+  _firePoint: {fileID: 1311390815}
   fireRate: 1
---- !u!114 &33089451212385857
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1199202781158113}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e28e9bb42d2c464f9c870b4f6e7123b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectile: {fileID: 4111110919055302188, guid: 24b2a16247c6cf7cea69e90c39013470, type: 3}
-  headPoint: {fileID: 1311390815}
 --- !u!33 &33222950219108419
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -11626,7 +11612,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8189980434712501978}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -26.54, y: 0, z: 57.83}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
