@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     private PlayerMovement playerMovement;
     private PlayerAttackController attackController;
     private float rotationAngle = 0f;
+    private Animator animator;
+
 
     private void Start()
     {
@@ -18,30 +20,21 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        // Handle player input for movement
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-
-        // Rotate the player with the mouse
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
-        rotationAngle += mouseX;
-        playerMovement.Rotate(rotationAngle);
-
-        playerMovement.Move(horizontalInput, verticalInput);
-
+        if (!attackController.GetisAttacking() && Input.GetMouseButtonDown(0))
+        {
+            attackController.Attack();
+        }
+        Moving();
+        
         // Handle other player actions and behaviors
         if (Input.GetButton("Jump"))
         {
             playerMovement.Jump();
         }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            attackController.Attack();
-        }
 
-        // Check if should sprint or not
-        playerMovement.Sprint(Input.GetKeyDown(KeyCode.LeftShift), Input.GetKeyUp(KeyCode.LeftShift));
+
+        
 
         /** 
          * TODO: 
@@ -69,6 +62,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    public void Moving(){
+        // Handle player input for movement
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+
+        // Rotate the player with the mouse
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        rotationAngle += mouseX;
+        playerMovement.Rotate(rotationAngle);
+
+        playerMovement.Move(horizontalInput, verticalInput);
+
+        // Check if should sprint or not
+        playerMovement.Sprint(Input.GetKeyDown(KeyCode.LeftShift), Input.GetKeyUp(KeyCode.LeftShift));
+        
+    }
     private void RespawnEnemy()
     {
         float y = 5;
