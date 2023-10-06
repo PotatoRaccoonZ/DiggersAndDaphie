@@ -50,8 +50,9 @@ public class Tower: MonoBehaviour {
     // Shoot tower projectile
     public void FireProjectile() {
         ProjectileController projectileController = Instantiate( _projectile, _firePoint.position, _firePoint.rotation ).GetComponent<ProjectileController>();
-        projectileController.Move( (target.position - transform.position).normalized ); // target - position atual do obj dá-nos a direção
-        // com "projectController" podemos fazer alterações às settings da bullet se quisermos (ex: speed, damage...)
+        projectileController.Seek(target);
+        // target - position atual do obj dï¿½-nos a direï¿½ï¿½o
+        // com "projectController" podemos fazer alteraï¿½ï¿½es ï¿½s settings da bullet se quisermos (ex: speed, damage...)
     }
 
     // Show the range of the tower
