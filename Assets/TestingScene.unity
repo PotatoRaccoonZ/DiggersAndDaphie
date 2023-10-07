@@ -11861,8 +11861,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tower: {fileID: 2739211806064679238, guid: aed76e180e52dd002ad3b556430c33fa, type: 3}
-  tower_green: {fileID: 6876240818020669651, guid: 7c0659f217dac13e9899c9be4b68389e, type: 3}
-  tower_red: {fileID: 5208734239684395892, guid: 275949b0eb0daba1fb4519da8b135667, type: 3}
+  tower_green: {fileID: 6853210925665227425, guid: 42fe5f4d0ac85a35aad947e34580c973, type: 3}
+  tower_red: {fileID: 7294010434943836385, guid: 31e77bf41cb40c97d802b32dbc304dcc, type: 3}
 --- !u!1 &9078756765681488956
 GameObject:
   m_ObjectHideFlags: 0

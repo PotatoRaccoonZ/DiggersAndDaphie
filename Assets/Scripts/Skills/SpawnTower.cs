@@ -16,7 +16,7 @@ public class SpawnTower : MonoBehaviour
     private Vector3 mousePosition;
     Plane plane = new Plane(Vector3.up, 0);
     float distance;
-    
+    private RaycastHit hit;
     
     // Start is called before the first frame update
     void Start()
@@ -38,14 +38,29 @@ public class SpawnTower : MonoBehaviour
 
         if(Input.GetKey(KeyCode.Alpha1)){
             Cursor.lockState = CursorLockMode.Confined;
-            if(previewTowerGreen == null){
-                previewTowerGreen = Instantiate(tower_green, mousePosition, transform.rotation);
-            }
-            previewTowerGreen.transform.position = mousePosition;
-            previewTowerGreen.transform.rotation = transform.rotation;
+            if(Physics.Raycast(ray, out hit, 1000)){
+                if(hit.collider.gameObject.name == "Plane" ){
+                    if(previewTowerGreen == null){
+                        Destroy(previewTowerRed);
+                        previewTowerGreen = Instantiate(tower_green, mousePosition, transform.rotation);
+                    }                
+                    previewTowerGreen.transform.position = mousePosition;
+                    previewTowerGreen.transform.rotation = transform.rotation;
+                }else{
+                    if(previewTowerRed == null){
+                        Destroy(previewTowerGreen);
+                        previewTowerRed = Instantiate(tower_red, mousePosition, transform.rotation);
+                    }                
+                    previewTowerRed.transform.position = mousePosition;
+                    previewTowerRed.transform.rotation = transform.rotation;
+                }
+            }    
+                
+                
             
             if(Input.GetMouseButtonDown(0)){
                 Destroy(previewTowerGreen);
+                Destroy(previewTowerRed);
                 spawnPoint = transform.position + transform.forward * distanceSpawn;
                 Instantiate(tower, mousePosition, transform.rotation);
             }
@@ -54,6 +69,7 @@ public class SpawnTower : MonoBehaviour
          if (Input.GetKeyUp(KeyCode.Alpha1)){
                 Cursor.lockState = CursorLockMode.Locked;
                 Destroy(previewTowerGreen);
+                Destroy(previewTowerRed);
         }
     }
 
