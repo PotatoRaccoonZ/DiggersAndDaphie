@@ -6,11 +6,14 @@ TagManager:
   tags:
   - PlayerSword
   - Enemy
+  - ArenaFloor
+  - Ground
+  - tower
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Preview
   - Water
   - UI
   - 
